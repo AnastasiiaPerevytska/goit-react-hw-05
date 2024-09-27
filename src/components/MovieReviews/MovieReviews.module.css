@@ -1,0 +1,17 @@
+.review {
+    padding: 120px;
+    margin: 0 auto;
+    font-size: 12px;
+    list-style: none;
+}
+
+.review ul {
+    max-height: 100vh;
+}
+
+.review li {
+    margin-bottom: 24px;
+    gap: 8px;
+    text-align: center;
+    padding: 24px;
+}

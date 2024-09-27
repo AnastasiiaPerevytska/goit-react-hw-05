@@ -1,0 +1,45 @@
+ul {
+    list-style: none;
+}
+
+.details {
+    justify-content: center;
+    margin: 0 auto;
+    display: flex;
+    padding: 40px;
+    gap: 40px;
+    list-style: none;
+}
+
+.info {
+    max-width: 600px;
+}
+
+.btn {
+    display: flex;
+    margin: 0 auto;
+    padding: 40px;
+    justify-content: center;
+    gap: 40px;
+}
+
+.btn ul {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    list-style-type: none;
+}
+
+.btn .link {
+    border: 1px solid black;
+    padding: 12px;
+    margin-left: 24px;
+    border-radius: 8px;
+
+    &&:hover {
+        background: #d5e5f2;
+    }
+
+    min-width: 120px;
+    text-align: center;
+}
