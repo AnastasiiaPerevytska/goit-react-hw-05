@@ -1,4 +1,4 @@
-import { NavLink, Outlet, useLocation, useParams } from "react-router-dom";
+import { NavLink, Outlet, useLocation, useParams, useNavigate } from "react-router-dom";
 import { fetchMovieDetails } from "../../services/api";
 import { useEffect, useState } from "react";
 import s from "./MovieDetailsPage.module.css";
@@ -15,6 +15,8 @@ const MovieDetailsPage = () => {
   const [genres, setGenres] = useState([]);
   const location = useLocation();
   console.log(location);
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -71,6 +73,11 @@ const MovieDetailsPage = () => {
           </ul>
         </div>
       </div>
+
+      <button className={s.backBtn} onClick={() => navigate(location.state?.from ?? "/")}>
+        Go back
+      </button>
+
       <div className={s.btn}>
         <NavLink className={buildLinkClass} to={`/movies/${movieID}/cast`}>
           Cast
