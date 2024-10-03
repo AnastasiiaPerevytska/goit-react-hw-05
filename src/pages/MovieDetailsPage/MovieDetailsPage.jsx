@@ -26,7 +26,7 @@ const MovieDetailsPage = () => {
         setMovie(res.data);
         setGenres(res.data.genres);
       } catch (error) {
-        setError(error);
+        setError(error.message);
       } finally {
         setLoading(false);
       }
@@ -47,7 +47,7 @@ const MovieDetailsPage = () => {
           wrapperClass
         />
       )}
-      {error && <p>Something wrong...</p>}
+      {error && <p>Something wrong: {error}</p>}
       <div className={s.details}>
         <img
           src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
@@ -74,7 +74,7 @@ const MovieDetailsPage = () => {
         </div>
       </div>
 
-      <button className={s.backBtn} onClick={() => navigate(location.state?.from ?? "/")}>
+      <button className={s.backBtn} onClick={() => navigate(location.state?.from ?? -1)}>
         Go back
       </button>
 
