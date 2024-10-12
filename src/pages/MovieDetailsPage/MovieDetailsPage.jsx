@@ -4,18 +4,21 @@ import { useEffect, useState } from "react";
 import s from "./MovieDetailsPage.module.css";
 import { Audio } from "react-loader-spinner";
 import { clsx } from "clsx";
+
 const buildLinkClass = ({ isActive }) => {
   return clsx(s.link, isActive && s.active);
 };
+
 const MovieDetailsPage = () => {
   const { movieID } = useParams();
-  const [movie, setMovie] = useState([]);
+  const [movie, setMovie] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [genres, setGenres] = useState([]);
   const location = useLocation();
-  console.log(location);
   const navigate = useNavigate();
+
+  const backLink = location.state?.from || "/";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,7 +36,9 @@ const MovieDetailsPage = () => {
     };
     fetchData();
   }, [movieID]);
+
   const { original_title, overview, vote_average, poster_path } = movie;
+
   return (
     <>
       {loading && (
@@ -43,11 +48,9 @@ const MovieDetailsPage = () => {
           radius="9"
           color="black"
           ariaLabel="loading"
-          wrapperStyle
-          wrapperClass
         />
       )}
-      {error && <p>Something wrong: {error}</p>}
+      {error && <p>Something went wrong: {error}</p>}
       <div className={s.details}>
         <img
           src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
@@ -74,17 +77,25 @@ const MovieDetailsPage = () => {
         </div>
       </div>
 
-      <button className={s.backBtn} onClick={() => navigate(location.state?.from ?? -1)}>
+      <button className={s.backBtn} onClick={() => navigate(backLink)}>
         Go back
       </button>
 
       <div className={s.btn}>
-        <NavLink className={buildLinkClass} to={`/movies/${movieID}/cast`}>
+        <NavLink
+          className={buildLinkClass}
+          to={`/movies/${movieID}/cast`}
+          state={{ from: backLink }}
+        >
           Cast
         </NavLink>
 
-        <NavLink to={`/movies/${movieID}/reviews`} className={buildLinkClass}>
-          Rewiews
+        <NavLink
+          className={buildLinkClass}
+          to={`/movies/${movieID}/reviews`}
+          state={{ from: backLink }}
+        >
+          Reviews
         </NavLink>
       </div>
       <Outlet />
